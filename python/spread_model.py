@@ -1,6 +1,11 @@
 import matplotlib.pyplot as plt
 from matplotlib.font_manager import FontProperties
-
+#seir 模型
+# 一般把传染病流行范围内的人群分成如下几类：
+# 1、S 类，易感者 (Susceptible)，指未得病者，但缺乏免疫能力，与感染者接触后容易受到感染；
+# 2、E 类，暴露者 (Exposed)，指接触过感染者，但暂无能力传染给其他人的人，对潜伏期长的传染病适用；
+# 3、I 类，感病者 (Infectious)，指染上传染病的人，可以传播给 S 类成员，将其变为 E 类或 I 类成员；
+# 4、R 类，康复者 (Recovered)，指被隔离或因病愈而具有免疫力的人。如免疫期有限，R 类成员可以重新变为 S 类。
 
 def getChineseFont():
     return FontProperties(fname='/System/Library/Fonts/PingFang.ttc', size=15)
@@ -67,7 +72,7 @@ if __name__ == '__main__':
 
     r = 20  # 传染者接触人数
 
-    b = 0.3  # 传染者传染概率
+    b = 0.1  # 传染者传染概率
 
     a = 0.1  # 潜伏者患病概率
 
