@@ -57,7 +57,7 @@ def plot(T, S, E, I, R, NI):
 
     plt.plot(T, E, color='k', label='潜伏者')
 
-    plt.plot(T, I, color='b', label='传染者')
+    plt.plot(T, I, color='b', label='感染者')
 
     plt.plot(T, R, color='g', label='康复者')
 
@@ -101,7 +101,7 @@ if __name__ == '__main__':
 
     b = 0.29  # 传染者传染概率
 
-    a = 0.01  # 潜伏者患病概率
+    a = 0.03  # 潜伏者患病概率
 
     recover_day = 14
 
