@@ -5,6 +5,7 @@ from matplotlib.font_manager import FontProperties
 def getChineseFont():
     return FontProperties(fname='/System/Library/Fonts/PingFang.ttc', size=15)
 
+
 plt.rcParams['axes.unicode_minus'] = False
 plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']
 
