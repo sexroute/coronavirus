@@ -1,12 +1,13 @@
 import matplotlib.pyplot as plt
 from matplotlib.font_manager import FontProperties
+
+
 def getChineseFont():
-    return FontProperties(fname='/System/Library/Fonts/PingFang.ttc',size=15)
-#plt.rcParams['font.sans-serif'] = ['KaiTi']
+    return FontProperties(fname='/System/Library/Fonts/PingFang.ttc', size=15)
 
 plt.rcParams['axes.unicode_minus'] = False
-
 plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']
+
 
 def calc(T):
     for i in range(0, len(T) - 1):
@@ -75,5 +76,5 @@ if __name__ == '__main__':
 
     calc(T)
 
-    plot(T, E,S,I,R)
+    plot(T, E, S, I, R)
     plt.show()
