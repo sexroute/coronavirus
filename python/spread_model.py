@@ -1,9 +1,3 @@
-import math
-
-import numpy as np
-
-import matplotlib
-
 import matplotlib.pyplot as plt
 from matplotlib.font_manager import FontProperties
 def getChineseFont():
@@ -30,21 +24,21 @@ def plot(T, S, E, I, R):
 
     plt.title("SEIR-病毒传播时间曲线", fontproperties=getChineseFont())
 
-    plt.plot(T, S, color='r', label='易感者')
+    plt.plot(T, S, color='r', label='易感者', fontproperties=getChineseFont())
 
-    plt.plot(T, E, color='k', label='潜伏者')
+    plt.plot(T, E, color='k', label='潜伏者', fontproperties=getChineseFont())
 
-    plt.plot(T, I, color='b', label='传染者')
+    plt.plot(T, I, color='b', label='传染者', fontproperties=getChineseFont())
 
-    plt.plot(T, R, color='g', label='康复者')
+    plt.plot(T, R, color='g', label='康复者', fontproperties=getChineseFont())
 
     plt.grid(False)
 
     plt.legend()
 
-    plt.xlabel("时间(天)")
+    plt.xlabel("时间(天)", fontproperties=getChineseFont())
 
-    plt.ylabel("人数")
+    plt.ylabel("人数", fontproperties=getChineseFont())
 
     plt.show()
 
