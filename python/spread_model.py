@@ -5,11 +5,14 @@ import numpy as np
 import matplotlib
 
 import matplotlib.pyplot as plt
-
+from matplotlib.font_manager import FontProperties
+def getChineseFont():
+    return FontProperties(fname='/System/Library/Fonts/PingFang.ttc',size=15)
 #plt.rcParams['font.sans-serif'] = ['KaiTi']
 
 plt.rcParams['axes.unicode_minus'] = False
 
+plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']
 
 def calc(T):
     for i in range(0, len(T) - 1):
@@ -25,7 +28,7 @@ def calc(T):
 def plot(T, S, E, I, R):
     plt.figure()
 
-    plt.title("SEIR-病毒传播时间曲线")
+    plt.title("SEIR-病毒传播时间曲线", fontproperties=getChineseFont())
 
     plt.plot(T, S, color='r', label='易感者')
 
@@ -68,7 +71,7 @@ if __name__ == '__main__':
 
     r = 20  # 传染者接触人数
 
-    b = 0.03  # 传染者传染概率
+    b = 0.3  # 传染者传染概率
 
     a = 0.1  # 潜伏者患病概率
 
@@ -78,5 +81,5 @@ if __name__ == '__main__':
 
     calc(T)
 
-    plt.plot(T, S, E, I, R)
+    plot(T, E,S,I,R)
     plt.show()
