@@ -24,15 +24,11 @@ def calcReal(T):
         if (data < 0):
             data = 0
         E.append(data)
-
+        NI.append(a * E[i+1])
         data_recovered = 0
         if i > recover_day:
-            data_recovered = I[i - data_recovered]
-            for j in range(i - recover_day, i):
-                data_x =  I[j] - data_recovered
-                if(data_x<0):
-                    data_x = 0
-                    I[j] = data_x
+            data_recovered = NI[i - recover_day]
+
         data_infected = I[i] + a * E[i] - data_recovered
         if (data_infected < 0):
             data_infected = 0
@@ -52,7 +48,7 @@ def calc(T):
         R.append(R[i] + y * I[i])
 
 
-def plot(T, S, E, I, R):
+def plot(T, S, E, I, R, NI):
     plt.figure()
 
     plt.title("SEIR-病毒传播时间曲线", fontproperties=getChineseFont())
@@ -64,6 +60,8 @@ def plot(T, S, E, I, R):
     plt.plot(T, I, color='b', label='传染者')
 
     plt.plot(T, R, color='g', label='康复者')
+
+    plt.plot(T, NI, color='c', label='新增感染者')
 
     plt.grid(False)
 
@@ -96,6 +94,9 @@ if __name__ == '__main__':
 
     R.append(0)
 
+    NI = []  #新增感染者
+    NI.append(0)
+
     r = 20  # 传染者接触人数
 
     b = 0.29  # 传染者传染概率
@@ -110,5 +111,5 @@ if __name__ == '__main__':
 
     calcReal(T)
 
-    plot(T, E, S, I, R)
+    plot(T, E, S, I, R, NI)
     plt.show()
