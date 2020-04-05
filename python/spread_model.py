@@ -1,6 +1,8 @@
 import matplotlib.pyplot as plt
 from matplotlib.font_manager import FontProperties
-#seir 模型
+
+
+# seir 模型
 # 一般把传染病流行范围内的人群分成如下几类：
 # 1、S 类，易感者 (Susceptible)，指未得病者，但缺乏免疫能力，与感染者接触后容易受到感染；
 # 2、E 类，暴露者 (Exposed)，指接触过感染者，但暂无能力传染给其他人的人，对潜伏期长的传染病适用；
@@ -13,6 +15,30 @@ def getChineseFont():
 
 plt.rcParams['axes.unicode_minus'] = False
 plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']
+
+
+def calcReal(T):
+    for i in range(0, len(T) - 1):
+        S.append(S[i] - r * b * S[i] * I[i] / N)
+        data = E[i] + r * b * S[i] * I[i] / N - a * E[i]
+        if (data < 0):
+            data = 0
+        E.append(data)
+
+        data_recovered = 0
+        if i > recover_day:
+            data_recovered = I[i - data_recovered]
+            for j in range(i - recover_day, i):
+                data_x =  I[j] - data_recovered
+                if(data_x<0):
+                    data_x = 0
+                    I[j] = data_x
+        data_infected = I[i] + a * E[i] - data_recovered
+        if (data_infected < 0):
+            data_infected = 0
+        I.append(data_infected)
+
+        R.append(R[i] + data_recovered)
 
 
 def calc(T):
@@ -72,15 +98,17 @@ if __name__ == '__main__':
 
     r = 20  # 传染者接触人数
 
-    b = 0.1  # 传染者传染概率
+    b = 0.29  # 传染者传染概率
 
-    a = 0.1  # 潜伏者患病概率
+    a = 0.01  # 潜伏者患病概率
 
-    y = 0.1  # 康复概率
+    recover_day = 14
+
+    y = 1 / recover_day  # 康复概率
 
     T = [i for i in range(0, 160)]  # 时间
 
-    calc(T)
+    calcReal(T)
 
     plot(T, E, S, I, R)
     plt.show()
