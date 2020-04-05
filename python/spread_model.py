@@ -16,19 +16,24 @@ def getChineseFont():
 plt.rcParams['axes.unicode_minus'] = False
 plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']
 
-
+plt.rcParams[u'font.sans-serif'] = ['simhei']
 def calcReal(T):
     for i in range(0, len(T) - 1):
-        S.append(S[i] - r * b * S[i] * I[i] / N)
-        data = E[i] + r * b * S[i] * I[i] / N - a * E[i]
+        r_x=r
+        if i > contain_day:
+            r_x=contain_r
+        S.append(S[i] - r_x * b * S[i] * I[i] / N)
+        data = E[i] + r_x * b * S[i] * I[i] / N - a * E[i]
         if (data < 0):
             data = 0
         E.append(data)
         NI.append(a * E[i+1])
         data_recovered = 0
+        data_dead=0
         if i > recover_day:
-            data_recovered = NI[i - recover_day]
-
+            data_recovered = NI[i - recover_day]*(1-d)
+            data_dead=NI[i - recover_day]*d
+        D.append(data_dead)
         data_infected = I[i] + a * E[i] - data_recovered
         if (data_infected < 0):
             data_infected = 0
@@ -48,35 +53,35 @@ def calc(T):
         R.append(R[i] + y * I[i])
 
 
-def plot(T, S, E, I, R, NI):
+def plot(T, S, E, I, R, NI,D):
     plt.figure()
 
-    plt.title("SEIR-病毒传播时间曲线", fontproperties=getChineseFont())
+    plt.title("SEIR-病毒传播时间曲线")
 
-    plt.plot(T, S, color='r', label='易感者')
+    #plt.plot(T, S, color='r', label='易感者')
 
-    plt.plot(T, E, color='k', label='潜伏者')
+    #plt.plot(T, E, color='k', label='潜伏者')
 
-    plt.plot(T, I, color='b', label='感染者')
+    #plt.plot(T, I, color='b', label='感染者')
 
-    plt.plot(T, R, color='g', label='康复者')
+    #plt.plot(T, R, color='g', label='康复者')
 
-    plt.plot(T, NI, color='c', label='新增感染者')
+    #plt.plot(T, NI, color='c', label='新增感染者')
+    plt.plot(T, D, color='m', label='死亡者')
 
     plt.grid(False)
 
     plt.legend()
 
-    plt.xlabel("时间(天)", fontproperties=getChineseFont())
+    plt.xlabel("时间(天)")
 
-    plt.ylabel("人数", fontproperties=getChineseFont())
+    plt.ylabel("人数")
 
     plt.show()
 
-
 if __name__ == '__main__':
-    # 首先还是设置一下参数,之后方便修改
-    N = 10000  # 人口总数
+    # 首先还是设置一下参数,之后方便修
+    N = 10000*800 # 人口总数
 
     E = []  # 潜伏携带者
 
@@ -97,19 +102,32 @@ if __name__ == '__main__':
     NI = []  #新增感染者
     NI.append(0)
 
-    r = 20  # 传染者接触人数
+    D=[]
+    D.append(0)
+
+    r = 30  # 传染者接触人数
 
     b = 0.29  # 传染者传染概率
 
     a = 0.03  # 潜伏者患病概率
 
+    d=0.03
+
     recover_day = 14
+
+    contain_day=25
+
+    contain_r=0
 
     y = 1 / recover_day  # 康复概率
 
-    T = [i for i in range(0, 160)]  # 时间
+    T = [i for i in range(0, 365)]  # 时间
 
     calcReal(T)
 
-    plot(T, E, S, I, R, NI)
+    plot(T, E, S, I, R, NI,D)
+    total=0
+    for i in range(0,len(D)):
+        total=total+D[i]
+    print(total)
     plt.show()
