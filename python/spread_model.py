@@ -24,13 +24,13 @@ def plot(T, S, E, I, R):
 
     plt.title("SEIR-病毒传播时间曲线", fontproperties=getChineseFont())
 
-    plt.plot(T, S, color='r', label='易感者', fontproperties=getChineseFont())
+    plt.plot(T, S, color='r', label='易感者')
 
-    plt.plot(T, E, color='k', label='潜伏者', fontproperties=getChineseFont())
+    plt.plot(T, E, color='k', label='潜伏者')
 
-    plt.plot(T, I, color='b', label='传染者', fontproperties=getChineseFont())
+    plt.plot(T, I, color='b', label='传染者')
 
-    plt.plot(T, R, color='g', label='康复者', fontproperties=getChineseFont())
+    plt.plot(T, R, color='g', label='康复者')
 
     plt.grid(False)
 
