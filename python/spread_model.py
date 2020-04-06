@@ -133,7 +133,7 @@ if __name__ == '__main__':
 
     a = 0.03  # Exposed infection ratio
 
-    d = 0.027  # death rate: dead/Infectious
+    d = 0.0338  # death rate: dead/Infectious
 
     B2 = 0.0  # infection ratio in Exposed status
 
