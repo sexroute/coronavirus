@@ -14,14 +14,27 @@ def getChineseFont():
 
 
 plt.rcParams['axes.unicode_minus'] = False
-plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']
+from sys import platform
+if platform == "linux" or platform == "linux2":
+    plt.rcParams[u'font.sans-serif'] = ['simhei']
+    # plt.use('qt4agg')
+    #指定默认字体
+    plt.rcParams['font.sans-serif'] = ['SimHei']
+    plt.rcParams['font.family']='sans-serif'
+    #解决负号'-'显示为方块的问题
+    plt.rcParams['axes.unicode_minus'] = False
 
-plt.rcParams[u'font.sans-serif'] = ['simhei']
+elif platform == "darwin":
+    plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']
+elif platform == "win32":
+    plt.rcParams[u'font.sans-serif'] = ['simhei']
+
+
 def calcReal(T):
     for i in range(0, len(T) - 1):
         r_x=r
-        if i > contain_day:
-            r_x=contain_r
+        if i > quarantine_day:
+            r_x=quarantine_r
         S.append(S[i] - r_x * b * S[i] * I[i] / N)
         data = E[i] + r_x * b * S[i] * I[i] / N - a * E[i]
         if (data < 0):
@@ -56,72 +69,72 @@ def calc(T):
 def plot(T, S, E, I, R, NI,D):
     plt.figure()
 
-    plt.title("SEIR-病毒传播时间曲线")
+    plt.title("SEIR-Virus-Time-Trend")
 
-    #plt.plot(T, S, color='r', label='易感者')
+    #plt.plot(T, S, color='r', label='Susceptible')
 
-    #plt.plot(T, E, color='k', label='潜伏者')
+    #plt.plot(T, E, color='k', label='Exposed')
 
-    #plt.plot(T, I, color='b', label='感染者')
+    #plt.plot(T, I, color='b', label='Infectious')
 
-    #plt.plot(T, R, color='g', label='康复者')
+    #plt.plot(T, R, color='g', label='Recovered')
 
-    #plt.plot(T, NI, color='c', label='新增感染者')
-    plt.plot(T, D, color='m', label='死亡者')
+    #plt.plot(T, NI, color='c', label='New Infectious')
+    plt.plot(T, D, color='m', label='Dead')
 
     plt.grid(False)
 
     plt.legend()
 
-    plt.xlabel("时间(天)")
+    plt.xlabel("Time(Day)")
 
-    plt.ylabel("人数")
+    plt.ylabel("People Count")
 
     plt.show()
 
 if __name__ == '__main__':
-    # 首先还是设置一下参数,之后方便修
-    N = 10000*800 # 人口总数
 
-    E = []  # 潜伏携带者
+    N = 10000*800 # Total People
+
+    E = []  # Exposed
 
     E.append(0)
 
-    I = []  # 传染者
+    I = []  # Infectious
 
     I.append(1)
 
-    S = []  # 易感者
+    S = []  # Susceptible
 
     S.append(N - I[0])
 
-    R = []  # 康复者
+    R = []  # Recovered
 
     R.append(0)
 
-    NI = []  #新增感染者
+    NI = []  #New Infectious
     NI.append(0)
 
     D=[]
     D.append(0)
 
-    r = 30  # 传染者接触人数
+    r = 30  # People Infectious Reached
 
-    b = 0.29  # 传染者传染概率
+    b = 0.29  # People infected ratio
 
-    a = 0.03  # 潜伏者患病概率
+    a = 0.03  # Exposed infection ratio
 
-    d=0.03
+    d=0.03  # death rate: dead/Infectious
 
-    recover_day = 14
+    recover_day = 14 #everage recover day
 
-    contain_day=25
+    quarantine_day=25 #quarantine day
 
-    contain_r=0
+    quarantine_r=0 #quarantine Infectious ratio
 
-    y = 1 / recover_day  # 康复概率
+    y = 1 / recover_day  # recover ratio
 
-    T = [i for i in range(0, 365)]  # 时间
+    T = [i for i in range(0, 365)]  # time
 
     calcReal(T)
 
