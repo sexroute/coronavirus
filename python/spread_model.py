@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 from matplotlib.font_manager import FontProperties
-
+from scipy.optimize import curve_fit
 
 # seir 模型
 # 一般把传染病流行范围内的人群分成如下几类：
@@ -54,6 +54,15 @@ def calcReal(T):
 
         R.append(R[i] + data_recovered)
 
+def calcChina(r,b,B2,a,y):
+    for i in range(0, len(T) - 1):
+        S.append(S[i] - r * b * S[i] * I[i] / N - B2*E[i]*S[i]/N)
+
+        E.append(E[i] + r * b * S[i] * I[i] / N - a * E[i])
+
+        I.append(I[i] + a * E[i] - y * I[i])
+
+        R.append(R[i] + y * I[i])
 
 def calc(T):
     for i in range(0, len(T) - 1):
