@@ -94,9 +94,9 @@ def plot(T):
     #
     # plt.plot(T, R, color='g', label='Recovered')
     #
-    # plt.plot(T, NI, color='c', label='New Infectious')
+    plt.plot(T, NI, color='c', label='New Infectious')
     plt.plot(T, D, color='m', label='New Dead')
-    # plt.plot(T, TD, color='m', label='Total Dead')
+    plt.plot(T, TD, color='y', label='Total Dead')
 
     plt.grid(False)
 
@@ -141,11 +141,11 @@ if __name__ == '__main__':
 
     quarantine_day = 33  # quarantine day
 
-    quarantine_r = 0.01  # quarantine Infectious ratio
+    quarantine_r = 0.00  # quarantine Infectious ratio
 
     y = 1 / recover_day  # recover ratio
 
-    observe_day = 60
+    observe_day = 365
 
     T = [i for i in range(0, observe_day)]  # time
 
